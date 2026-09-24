@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-<title>LEMpar BAYU 🤣</title>
+<title>LEMPAR BAYU 🤣</title>
 
 <style>
 *{
@@ -23,8 +23,7 @@ body{
 #game{
   min-height:100vh;
   padding:15px;
-  background:
-    radial-gradient(circle at top,#54206b,#120b18 55%,#050505);
+  background:radial-gradient(circle at top,#54206b,#120b18 55%,#050505);
 }
 
 h1{
@@ -52,12 +51,11 @@ h1{
   border:3px solid #fff;
   border-radius:24px;
   overflow:hidden;
-  background:
-    radial-gradient(circle at 50% 35%,#422052,#120d16 65%);
+  background:radial-gradient(circle at 50% 35%,#422052,#120d16 65%);
   box-shadow:0 0 30px #9d39c9;
 }
 
-/* TARGET */
+/* FOTO TARGET */
 #target{
   position:absolute;
   left:50%;
@@ -71,12 +69,15 @@ h1{
   background:#222;
   box-shadow:0 0 25px #ff3df2;
   transition:transform .12s;
+  z-index:2;
 }
 
 #target img{
   width:100%;
   height:100%;
   object-fit:cover;
+  object-position:center;
+  display:block;
 }
 
 #target.hit{
@@ -186,72 +187,59 @@ h1{
 
 <div id="game">
 
-  <h1>🤣 LEMPAR BAYU 🤣</h1>
-  <p class="subtitle">Pilih benda, lalu lempar ke target!</p>
+<h1>🤣 LEMPAR BAYU 🤣</h1>
+<p class="subtitle">Pilih benda, lalu lempar ke target!</p>
 
-  <div id="score">Skor: 0</div>
-  <div id="message">Tekan MULAI dulu bro!</div>
+<div id="score">Skor: 0</div>
+<div id="message">Tekan MULAI dulu bro!</div>
 
-  <div id="arena">
+<div id="arena">
 
-    <div id="target">
-  
-  
-      <div class="gallery">
+  <div id="target">
+    <img id="targetImage"
+      src="IMG-20260503-WA0002.jpg"
+      alt="Bayu">
+  </div>
 
-<div id="target">
-  <img id="targetImage" src="IMG-20260503-WA0002.jpg" alt="Bayu">
 </div>
-      </div>
-    </div>
 
-  </div>
+<div id="items">
 
-  <div id="items">
+<button class="item" onclick="throwItem('🩴',10,'PLAK!')">
+🩴<span>Sendal</span>
+</button>
 
-    <button class="item" onclick="throwItem('🩴',10,'PLAK!')">
-      🩴
-      <span>Sendal</span>
-    </button>
+<button class="item" onclick="throwItem('🥒',15,'DUK!')">
+🥒<span>Timun</span>
+</button>
 
-    <button class="item" onclick="throwItem('🥒',15,'DUK!')">
-      🥒
-      <span>Timun</span>
-    </button>
+<button class="item" onclick="throwItem('🍆',15,'BUK!')">
+🍆<span>Terong</span>
+</button>
 
-    <button class="item" onclick="throwItem('🍆',15,'BUK!')">
-      🍆
-      <span>Terong</span>
-    </button>
+<button class="item" onclick="throwItem('👟',20,'BRAK!')">
+👟<span>Sepatu</span>
+</button>
 
-    <button class="item" onclick="throwItem('👟',20,'BRAK!')">
-      👟
-      <span>Sepatu</span>
-    </button>
+<button class="item" onclick="throwItem('❤️',25,'LOVE!')">
+❤️<span>Hati</span>
+</button>
 
-    <button class="item" onclick="throwItem('❤️',25,'LOVE!')">
-      ❤️
-      <span>Hati</span>
-    </button>
+<button class="item" onclick="throwItem('⚽',30,'BOOM!')">
+⚽<span>Bola</span>
+</button>
 
-    <button class="item" onclick="throwItem('⚽',30,'BOOM!')">
-      ⚽
-      <span>Bola</span>
-    </button>
+<button class="item" onclick="throwItem('💣',50,'DUARR!')">
+💣<span>Bom</span>
+</button>
 
-    <button class="item" onclick="throwItem('💣',50,'DUARR!')">
-      💣
-      <span>Bom</span>
-    </button>
+<button class="item" onclick="throwItem('🍅',10,'PLOK!')">
+🍅<span>Tomat</span>
+</button>
 
-    <button class="item" onclick="throwItem('🍅',10,'PLOK!')">
-      🍅
-      <span>Tomat</span>
-    </button>
+</div>
 
-  </div>
-
-  <button id="start" onclick="startGame()">MULAI GAME</button>
+<button id="start" onclick="startGame()">MULAI GAME</button>
 
 </div>
 
@@ -261,18 +249,55 @@ let score=0;
 let playing=false;
 let audioCtx=null;
 
-Bu
+/* FOTO */
+
+const photos = [
+  "IMG-20260503-WA0002.jpg",
+  "IMG-20260804-WA0102.jpg",
+  "IMG-20260916-WA0088.jpg",
+  "IMG_20260825_195458.jpg",
+  "IMG_20260911_121045.jpg",
+  "IMG_20260911_121113.jpg",
+  "IMG_20260911_121132.jpg",
+  "IMG_20260911_122745.jpg",
+  "IMG_20260924_003803.jpg"
+];
+
+let photoIndex=0;
+
+/* GANTI FOTO SETIAP 15 DETIK */
+
+setInterval(function(){
+
+  photoIndex=(photoIndex+1)%photos.length;
+
+  document.getElementById("targetImage").src=
+    photos[photoIndex];
+
+},15000);
+
+
+/* ELEMENT */
+
+const arena=document.getElementById("arena");
+const target=document.getElementById("target");
+const message=document.getElementById("message");
+const scoreText=document.getElementById("score");
+
 
 /* AUDIO */
 
 function initAudio(){
+
   if(!audioCtx){
-    audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+    audioCtx=
+      new(window.AudioContext||window.webkitAudioContext)();
   }
 
   if(audioCtx.state==="suspended"){
     audioCtx.resume();
   }
+
 }
 
 function sound(type){
@@ -287,14 +312,21 @@ function sound(type){
 
   let freq=300;
 
-  if(type==="hit") freq=120;
-  if(type==="bom") freq=70;
-  if(type==="love") freq=700;
+  if(type==="hit")freq=120;
+  if(type==="bom")freq=70;
+  if(type==="love")freq=700;
 
   osc.frequency.value=freq;
-  osc.type=type==="bom"?"sawtooth":"square";
 
-  gain.gain.setValueAtTime(.15,audioCtx.currentTime);
+  osc.type=
+    type==="bom"
+    ?"sawtooth"
+    :"square";
+
+  gain.gain.setValueAtTime(
+    .15,
+    audioCtx.currentTime
+  );
 
   gain.gain.exponentialRampToValueAtTime(
     .001,
@@ -302,10 +334,15 @@ function sound(type){
   );
 
   osc.start();
-  osc.stop(audioCtx.currentTime+.25);
+
+  osc.stop(
+    audioCtx.currentTime+.25
+  );
+
 }
 
-/* GAME */
+
+/* MULAI */
 
 function startGame(){
 
@@ -315,86 +352,147 @@ function startGame(){
   playing=true;
 
   scoreText.textContent="Skor: 0";
-  message.textContent="Pilih benda buat dilempar! 🎯";
+
+  message.textContent=
+    "Pilih benda buat dilempar! 🎯";
 
   sound("love");
+
 }
+
+
+/* LEMPAR */
 
 function throwItem(emoji,points,text){
 
   if(!playing){
-    message.textContent="Tekan MULAI dulu bro 😭";
+
+    message.textContent=
+      "Tekan MULAI dulu bro 😭";
+
     return;
   }
 
-  const projectile=document.createElement("div");
+  const projectile=
+    document.createElement("div");
 
   projectile.className="projectile";
+
   projectile.textContent=emoji;
 
   arena.appendChild(projectile);
 
-  const startX=Math.random()*(arena.clientWidth-60)+20;
-  const startY=arena.clientHeight-60;
 
-  projectile.style.left=startX+"px";
-  projectile.style.top=startY+"px";
+  /* POSISI AWAL */
 
-  const targetRect=target.getBoundingClientRect();
-  const arenaRect=arena.getBoundingClientRect();
+  const startX=
+    Math.random()*
+    (arena.clientWidth-60)+20;
+
+  const startY=
+    arena.clientHeight-60;
+
+  projectile.style.left=
+    startX+"px";
+
+  projectile.style.top=
+    startY+"px";
+
+
+  /* POSISI TENGAH TARGET */
 
   const targetX=
-    targetRect.left-arenaRect.left+
-    targetRect.width/2-20;
+    target.offsetLeft+
+    target.offsetWidth/2-
+    20;
 
   const targetY=
-    targetRect.top-arenaRect.top+
-    targetRect.height/2-20;
+    target.offsetTop+
+    target.offsetHeight/2-
+    20;
 
-  setTimeout(()=>{
 
-    projectile.style.left=targetX+"px";
-    projectile.style.top=targetY+"px";
-    projectile.style.transform="rotate(720deg) scale(1.3)";
+  /* LEMPAR KE TARGET */
+
+  setTimeout(function(){
+
+    projectile.style.left=
+      targetX+"px";
+
+    projectile.style.top=
+      targetY+"px";
+
+    projectile.style.transform=
+      "rotate(720deg) scale(1.3)";
 
   },20);
 
-  setTimeout(()=>{
+
+  /* KENA TARGET */
+
+  setTimeout(function(){
 
     projectile.remove();
 
     score+=points;
 
-    scoreText.textContent="Skor: "+score;
+    scoreText.textContent=
+      "Skor: "+score;
 
-    message.textContent=text+" +"+points;
+    message.textContent=
+      text+" +"+points;
+
+
+    /* TARGET GOYANG */
 
     target.classList.remove("hit");
+
     void target.offsetWidth;
+
     target.classList.add("hit");
 
+
+    /* ARENA GOYANG */
+
     arena.classList.remove("shake");
+
     void arena.offsetWidth;
+
     arena.classList.add("shake");
 
+
     if(emoji==="💣"){
+
       sound("bom");
+
       explosion();
+
     }else{
-      sound(emoji==="❤️"?"love":"hit");
+
+      sound(
+        emoji==="❤️"
+        ?"love"
+        :"hit"
+      );
+
       showPop(text);
+
     }
 
   },380);
+
 }
 
-/* EFFECT */
+
+/* TEKS EFEK */
 
 function showPop(text){
 
-  const pop=document.createElement("div");
+  const pop=
+    document.createElement("div");
 
   pop.className="pop";
+
   pop.textContent=text;
 
   pop.style.left=
@@ -405,32 +503,51 @@ function showPop(text){
 
   arena.appendChild(pop);
 
-  setTimeout(()=>pop.remove(),600);
+  setTimeout(
+    ()=>pop.remove(),
+    600
+  );
+
 }
+
+
+/* BOM */
 
 function explosion(){
 
   for(let i=0;i<12;i++){
 
-    const e=document.createElement("div");
+    const e=
+      document.createElement("div");
 
     e.className="pop";
+
     e.textContent="💥";
 
     e.style.left=
-      (arena.clientWidth/2+
-      (Math.random()-.5)*180)+"px";
+      (
+        arena.clientWidth/2+
+        (Math.random()-.5)*180
+      )+"px";
 
     e.style.top=
-      (arena.clientHeight/2+
-      (Math.random()-.5)*150)+"px";
+      (
+        arena.clientHeight/2+
+        (Math.random()-.5)*150
+      )+"px";
 
     arena.appendChild(e);
 
-    setTimeout(()=>e.remove(),700);
+    setTimeout(
+      ()=>e.remove(),
+      700
+    );
+
   }
 
-  message.textContent="💣 DUARRRR!!! +50";
+  message.textContent=
+    "💣 DUARRRR!!! +50";
+
 }
 
 </script>
