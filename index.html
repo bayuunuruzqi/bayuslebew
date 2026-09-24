@@ -2,139 +2,434 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Bayu Dilan Justin Bieber</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>LEMpar BAYU 🤣</title>
+
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
 body{
   margin:0;
   font-family:Arial,sans-serif;
-  background:#111;
+  background:#090909;
   color:white;
   text-align:center;
   overflow:hidden;
 }
+
 #game{
   min-height:100vh;
-  padding:25px 15px;
-  background:linear-gradient(160deg,#171717,#3b164d);
+  padding:15px;
+  background:
+    radial-gradient(circle at top,#54206b,#120b18 55%,#050505);
 }
-h1{font-size:30px;margin:15px 0 5px}
-p{color:#ddd}
-#score{font-size:22px;margin:15px}
+
+h1{
+  margin:8px 0 3px;
+  font-size:27px;
+}
+
+.subtitle{
+  margin:0 0 8px;
+  color:#ccc;
+  font-size:14px;
+}
+
+#score{
+  font-size:22px;
+  font-weight:bold;
+  margin:8px;
+}
+
 #arena{
   position:relative;
-  height:55vh;
+  height:52vh;
   max-width:500px;
   margin:auto;
-  border:3px solid white;
-  border-radius:20px;
-  background:linear-gradient(#28194b,#111);
+  border:3px solid #fff;
+  border-radius:24px;
   overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 35%,#422052,#120d16 65%);
+  box-shadow:0 0 30px #9d39c9;
 }
-.player{
+
+/* TARGET */
+#target{
   position:absolute;
-  bottom:20px;
   left:50%;
-  transform:translateX(-50%);
-  font-size:65px;
-  transition:.1s;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:180px;
+  height:180px;
+  border-radius:50%;
+  overflow:hidden;
+  border:5px solid white;
+  background:#222;
+  box-shadow:0 0 25px #ff3df2;
+  transition:transform .12s;
 }
-.note{
-  position:absolute;
-  font-size:35px;
-  cursor:pointer;
-  user-select:none;
+
+#target img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
-button{
-  margin-top:18px;
-  padding:14px 28px;
-  border:0;
-  border-radius:12px;
-  font-size:18px;
+
+#target.hit{
+  animation:hit .25s;
+}
+
+@keyframes hit{
+  0%{transform:translate(-50%,-50%) rotate(0) scale(1)}
+  35%{transform:translate(-50%,-50%) rotate(-8deg) scale(.9)}
+  70%{transform:translate(-50%,-50%) rotate(8deg) scale(1.08)}
+  100%{transform:translate(-50%,-50%) rotate(0) scale(1)}
+}
+
+#message{
+  min-height:25px;
+  font-size:17px;
   font-weight:bold;
+}
+
+#items{
+  max-width:500px;
+  margin:12px auto 0;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+}
+
+.item{
+  border:2px solid #555;
+  border-radius:14px;
+  background:#1b1b1b;
+  color:white;
+  padding:9px 3px;
+  font-size:30px;
+  cursor:pointer;
+  transition:.12s;
+}
+
+.item:active{
+  transform:scale(.88);
+  background:#3d174b;
+}
+
+.item span{
+  display:block;
+  font-size:11px;
+  margin-top:3px;
+  color:#ccc;
+}
+
+#start{
+  margin-top:12px;
+  padding:13px 28px;
+  border:0;
+  border-radius:14px;
   background:#fff;
   color:#111;
+  font-weight:bold;
+  font-size:17px;
 }
-#message{font-size:18px;min-height:25px}
+
+.projectile{
+  position:absolute;
+  font-size:42px;
+  pointer-events:none;
+  z-index:5;
+  transition:
+    left .35s cubic-bezier(.2,.8,.2,1),
+    top .35s cubic-bezier(.2,.8,.2,1),
+    transform .35s;
+}
+
+.pop{
+  position:absolute;
+  pointer-events:none;
+  z-index:10;
+  font-size:28px;
+  font-weight:bold;
+  animation:pop .6s forwards;
+}
+
+@keyframes pop{
+  0%{
+    opacity:1;
+    transform:scale(.5) translateY(0);
+  }
+  100%{
+    opacity:0;
+    transform:scale(1.5) translateY(-55px);
+  }
+}
+
+.shake{
+  animation:shake .25s;
+}
+
+@keyframes shake{
+  0%,100%{transform:translateX(0)}
+  25%{transform:translateX(-8px)}
+  50%{transform:translateX(8px)}
+  75%{transform:translateX(-5px)}
+}
 </style>
 </head>
 
 <body>
+
 <div id="game">
-  <h1>🎤 BAYU DILAN JUSTIN BIEBER 🎤</h1>
-  <p>Tangkap semua not musik sebelum jatuh!</p>
+
+  <h1>🤣 LEMPAR BAYU 🤣</h1>
+  <p class="subtitle">Pilih benda, lalu lempar ke target!</p>
 
   <div id="score">Skor: 0</div>
-  <div id="message">Siap? Tekan MULAI!</div>
+  <div id="message">Tekan MULAI dulu bro!</div>
 
   <div id="arena">
-    <div class="player" id="player">🕺</div>
+
+    <div id="target">
+      <img src="bayu.jpg" alt="Bayu">
+    </div>
+
   </div>
 
-  <button onclick="startGame()">MULAI GAME</button>
+  <div id="items">
+
+    <button class="item" onclick="throwItem('🩴',10,'PLAK!')">
+      🩴
+      <span>Sendal</span>
+    </button>
+
+    <button class="item" onclick="throwItem('🥒',15,'DUK!')">
+      🥒
+      <span>Timun</span>
+    </button>
+
+    <button class="item" onclick="throwItem('🍆',15,'BUK!')">
+      🍆
+      <span>Terong</span>
+    </button>
+
+    <button class="item" onclick="throwItem('👟',20,'BRAK!')">
+      👟
+      <span>Sepatu</span>
+    </button>
+
+    <button class="item" onclick="throwItem('❤️',25,'LOVE!')">
+      ❤️
+      <span>Hati</span>
+    </button>
+
+    <button class="item" onclick="throwItem('⚽',30,'BOOM!')">
+      ⚽
+      <span>Bola</span>
+    </button>
+
+    <button class="item" onclick="throwItem('💣',50,'DUARR!')">
+      💣
+      <span>Bom</span>
+    </button>
+
+    <button class="item" onclick="throwItem('🍅',10,'PLOK!')">
+      🍅
+      <span>Tomat</span>
+    </button>
+
+  </div>
+
+  <button id="start" onclick="startGame()">MULAI GAME</button>
+
 </div>
 
 <script>
+
 let score=0;
 let playing=false;
-let timer;
+let audioCtx=null;
+
+const arena=document.getElementById("arena");
+const target=document.getElementById("target");
+const message=document.getElementById("message");
+const scoreText=document.getElementById("score");
+
+/* AUDIO */
+
+function initAudio(){
+  if(!audioCtx){
+    audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  }
+
+  if(audioCtx.state==="suspended"){
+    audioCtx.resume();
+  }
+}
+
+function sound(type){
+
+  initAudio();
+
+  const osc=audioCtx.createOscillator();
+  const gain=audioCtx.createGain();
+
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+
+  let freq=300;
+
+  if(type==="hit") freq=120;
+  if(type==="bom") freq=70;
+  if(type==="love") freq=700;
+
+  osc.frequency.value=freq;
+  osc.type=type==="bom"?"sawtooth":"square";
+
+  gain.gain.setValueAtTime(.15,audioCtx.currentTime);
+
+  gain.gain.exponentialRampToValueAtTime(
+    .001,
+    audioCtx.currentTime+.25
+  );
+
+  osc.start();
+  osc.stop(audioCtx.currentTime+.25);
+}
+
+/* GAME */
 
 function startGame(){
+
+  initAudio();
+
   score=0;
   playing=true;
-  document.getElementById("score").textContent="Skor: 0";
-  document.getElementById("message").textContent="Tangkap not musik! 🎵";
-  clearInterval(timer);
-  timer=setInterval(createNote,700);
+
+  scoreText.textContent="Skor: 0";
+  message.textContent="Pilih benda buat dilempar! 🎯";
+
+  sound("love");
 }
 
-function createNote(){
-  if(!playing)return;
+function throwItem(emoji,points,text){
 
-  const arena=document.getElementById("arena");
-  const note=document.createElement("div");
-  note.className="note";
-  note.textContent=["🎵","🎶","⭐","❤️"][Math.floor(Math.random()*4)];
-
-  note.style.left=Math.random()*85+"%";
-  note.style.top="-40px";
-
-  arena.appendChild(note);
-
-  let y=-40;
-
-  const fall=setInterval(()=>{
-    y+=4;
-    note.style.top=y+"px";
-
-    if(y>arena.clientHeight){
-      clearInterval(fall);
-      note.remove();
-    }
-  },30);
-
-  note.onclick=()=>{
-    score++;
-    document.getElementById("score").textContent="Skor: "+score;
-    document.getElementById("message").textContent="🔥 Mantap!";
-    clearInterval(fall);
-    note.remove();
-  };
-}
-
-document.addEventListener("touchstart",function(e){
-  const x=e.touches[0].clientX;
-  const arena=document.getElementById("arena");
-  const rect=arena.getBoundingClientRect();
-
-  if(x>rect.left && x<rect.right){
-    const player=document.getElementById("player");
-    let pos=x-rect.left;
-    pos=Math.max(40,Math.min(rect.width-40,pos));
-    player.style.left=pos+"px";
+  if(!playing){
+    message.textContent="Tekan MULAI dulu bro 😭";
+    return;
   }
-});
+
+  const projectile=document.createElement("div");
+
+  projectile.className="projectile";
+  projectile.textContent=emoji;
+
+  arena.appendChild(projectile);
+
+  const startX=Math.random()*(arena.clientWidth-60)+20;
+  const startY=arena.clientHeight-60;
+
+  projectile.style.left=startX+"px";
+  projectile.style.top=startY+"px";
+
+  const targetRect=target.getBoundingClientRect();
+  const arenaRect=arena.getBoundingClientRect();
+
+  const targetX=
+    targetRect.left-arenaRect.left+
+    targetRect.width/2-20;
+
+  const targetY=
+    targetRect.top-arenaRect.top+
+    targetRect.height/2-20;
+
+  setTimeout(()=>{
+
+    projectile.style.left=targetX+"px";
+    projectile.style.top=targetY+"px";
+    projectile.style.transform="rotate(720deg) scale(1.3)";
+
+  },20);
+
+  setTimeout(()=>{
+
+    projectile.remove();
+
+    score+=points;
+
+    scoreText.textContent="Skor: "+score;
+
+    message.textContent=text+" +"+points;
+
+    target.classList.remove("hit");
+    void target.offsetWidth;
+    target.classList.add("hit");
+
+    arena.classList.remove("shake");
+    void arena.offsetWidth;
+    arena.classList.add("shake");
+
+    if(emoji==="💣"){
+      sound("bom");
+      explosion();
+    }else{
+      sound(emoji==="❤️"?"love":"hit");
+      showPop(text);
+    }
+
+  },380);
+}
+
+/* EFFECT */
+
+function showPop(text){
+
+  const pop=document.createElement("div");
+
+  pop.className="pop";
+  pop.textContent=text;
+
+  pop.style.left=
+    (arena.clientWidth/2-35)+"px";
+
+  pop.style.top=
+    (arena.clientHeight/2-20)+"px";
+
+  arena.appendChild(pop);
+
+  setTimeout(()=>pop.remove(),600);
+}
+
+function explosion(){
+
+  for(let i=0;i<12;i++){
+
+    const e=document.createElement("div");
+
+    e.className="pop";
+    e.textContent="💥";
+
+    e.style.left=
+      (arena.clientWidth/2+
+      (Math.random()-.5)*180)+"px";
+
+    e.style.top=
+      (arena.clientHeight/2+
+      (Math.random()-.5)*150)+"px";
+
+    arena.appendChild(e);
+
+    setTimeout(()=>e.remove(),700);
+  }
+
+  message.textContent="💣 DUARRRR!!! +50";
+}
+
 </script>
+
 </body>
   </html>
