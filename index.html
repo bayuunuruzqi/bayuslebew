@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bayu Dilan Justin Bieber</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#111;
+  color:white;
+  text-align:center;
+  overflow:hidden;
+}
+#game{
+  min-height:100vh;
+  padding:25px 15px;
+  background:linear-gradient(160deg,#171717,#3b164d);
+}
+h1{font-size:30px;margin:15px 0 5px}
+p{color:#ddd}
+#score{font-size:22px;margin:15px}
+#arena{
+  position:relative;
+  height:55vh;
+  max-width:500px;
+  margin:auto;
+  border:3px solid white;
+  border-radius:20px;
+  background:linear-gradient(#28194b,#111);
+  overflow:hidden;
+}
+.player{
+  position:absolute;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:65px;
+  transition:.1s;
+}
+.note{
+  position:absolute;
+  font-size:35px;
+  cursor:pointer;
+  user-select:none;
+}
+button{
+  margin-top:18px;
+  padding:14px 28px;
+  border:0;
+  border-radius:12px;
+  font-size:18px;
+  font-weight:bold;
+  background:#fff;
+  color:#111;
+}
+#message{font-size:18px;min-height:25px}
+</style>
+</head>
+
+<body>
+<div id="game">
+  <h1>🎤 BAYU DILAN JUSTIN BIEBER 🎤</h1>
+  <p>Tangkap semua not musik sebelum jatuh!</p>
+
+  <div id="score">Skor: 0</div>
+  <div id="message">Siap? Tekan MULAI!</div>
+
+  <div id="arena">
+    <div class="player" id="player">🕺</div>
+  </div>
+
+  <button onclick="startGame()">MULAI GAME</button>
+</div>
+
+<script>
+let score=0;
+let playing=false;
+let timer;
+
+function startGame(){
+  score=0;
+  playing=true;
+  document.getElementById("score").textContent="Skor: 0";
+  document.getElementById("message").textContent="Tangkap not musik! 🎵";
+  clearInterval(timer);
+  timer=setInterval(createNote,700);
+}
+
+function createNote(){
+  if(!playing)return;
+
+  const arena=document.getElementById("arena");
+  const note=document.createElement("div");
+  note.className="note";
+  note.textContent=["🎵","🎶","⭐","❤️"][Math.floor(Math.random()*4)];
+
+  note.style.left=Math.random()*85+"%";
+  note.style.top="-40px";
+
+  arena.appendChild(note);
+
+  let y=-40;
+
+  const fall=setInterval(()=>{
+    y+=4;
+    note.style.top=y+"px";
+
+    if(y>arena.clientHeight){
+      clearInterval(fall);
+      note.remove();
+    }
+  },30);
+
+  note.onclick=()=>{
+    score++;
+    document.getElementById("score").textContent="Skor: "+score;
+    document.getElementById("message").textContent="🔥 Mantap!";
+    clearInterval(fall);
+    note.remove();
+  };
+}
+
+document.addEventListener("touchstart",function(e){
+  const x=e.touches[0].clientX;
+  const arena=document.getElementById("arena");
+  const rect=arena.getBoundingClientRect();
+
+  if(x>rect.left && x<rect.right){
+    const player=document.getElementById("player");
+    let pos=x-rect.left;
+    pos=Math.max(40,Math.min(rect.width-40,pos));
+    player.style.left=pos+"px";
+  }
+});
+</script>
+</body>
+  </html>
