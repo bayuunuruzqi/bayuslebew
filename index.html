@@ -2,8 +2,9 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-<title>LEMPAR BAYU 🤣</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>🤣 LEMPAR BAYU 🤣</title>
 
 <style>
 *{
@@ -11,174 +12,344 @@
   -webkit-tap-highlight-color:transparent;
 }
 
-body{
+html,body{
   margin:0;
+  padding:0;
+  width:100%;
+  min-height:100%;
+}
+
+body{
   font-family:Arial,sans-serif;
-  background:#090909;
+  background:#080808;
   color:white;
   text-align:center;
-  overflow:hidden;
+  overflow-x:hidden;
 }
 
 #game{
+  width:100%;
   min-height:100vh;
-  padding:15px;
-  background:radial-gradient(circle at top,#54206b,#120b18 55%,#050505);
+  padding:12px 10px 25px;
+  background:
+    radial-gradient(circle at top,#642276,#160d1d 55%,#050505);
 }
 
 h1{
-  margin:8px 0 3px;
-  font-size:27px;
+  margin:5px 0;
+  font-size:25px;
 }
 
 .subtitle{
-  margin:0 0 8px;
+  margin:0 0 5px;
   color:#ccc;
-  font-size:14px;
+  font-size:13px;
 }
 
 #score{
-  font-size:22px;
+  font-size:21px;
   font-weight:bold;
-  margin:8px;
-}
-
-#arena{
-  position:relative;
-  height:52vh;
-  max-width:500px;
-  margin:auto;
-  border:3px solid #fff;
-  border-radius:24px;
-  overflow:hidden;
-  background:radial-gradient(circle at 50% 35%,#422052,#120d16 65%);
-  box-shadow:0 0 30px #9d39c9;
-}
-
-/* FOTO TARGET */
-#target{
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  width:180px;
-  height:180px;
-  border-radius:50%;
-  overflow:hidden;
-  border:5px solid white;
-  background:#222;
-  box-shadow:0 0 25px #ff3df2;
-  transition:transform .12s;
-  z-index:2;
-}
-
-#target img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:center;
-  display:block;
-}
-
-#target.hit{
-  animation:hit .25s;
-}
-
-@keyframes hit{
-  0%{transform:translate(-50%,-50%) rotate(0) scale(1)}
-  35%{transform:translate(-50%,-50%) rotate(-8deg) scale(.9)}
-  70%{transform:translate(-50%,-50%) rotate(8deg) scale(1.08)}
-  100%{transform:translate(-50%,-50%) rotate(0) scale(1)}
+  margin:7px 0;
 }
 
 #message{
-  min-height:25px;
-  font-size:17px;
+  min-height:24px;
+  font-size:15px;
   font-weight:bold;
+  margin-bottom:7px;
 }
 
-#items{
+/* ARENA */
+
+#arena{
+  position:relative;
+  width:100%;
   max-width:500px;
-  margin:12px auto 0;
+  height:min(48vh,430px);
+  min-height:270px;
+  margin:0 auto;
+
+  border:3px solid white;
+  border-radius:22px;
+
+  overflow:hidden;
+
+  background:
+    radial-gradient(circle at 50% 35%,#482053,#100b14 70%);
+
+  box-shadow:0 0 25px #a532c9;
+}
+
+/* TARGET */
+
+#target{
+  position:absolute;
+
+  left:50%;
+  top:50%;
+
+  width:150px;
+  height:150px;
+
+  transform:translate(-50%,-50%);
+
+  border-radius:50%;
+  overflow:hidden;
+
+  border:5px solid white;
+
+  background:#222;
+
+  box-shadow:0 0 25px #ff3df2;
+
+  z-index:3;
+}
+
+#targetImage{
+  width:100%;
+  height:100%;
+
+  display:block;
+
+  object-fit:cover;
+  object-position:center;
+}
+
+/* TARGET KENA */
+
+#target.hit{
+  animation:hit .3s;
+}
+
+@keyframes hit{
+
+  0%{
+    transform:translate(-50%,-50%) scale(1) rotate(0);
+  }
+
+  30%{
+    transform:translate(-50%,-50%) scale(.85) rotate(-8deg);
+  }
+
+  60%{
+    transform:translate(-50%,-50%) scale(1.1) rotate(8deg);
+  }
+
+  100%{
+    transform:translate(-50%,-50%) scale(1) rotate(0);
+  }
+
+}
+
+/* BARANG */
+
+#items{
+  width:100%;
+  max-width:500px;
+
+  margin:10px auto 0;
+
   display:grid;
+
   grid-template-columns:repeat(4,1fr);
-  gap:8px;
+
+  gap:6px;
 }
 
 .item{
-  border:2px solid #555;
-  border-radius:14px;
-  background:#1b1b1b;
-  color:white;
-  padding:9px 3px;
-  font-size:30px;
-  cursor:pointer;
-  transition:.12s;
-}
+  min-width:0;
 
-.item:active{
-  transform:scale(.88);
-  background:#3d174b;
+  border:2px solid #555;
+  border-radius:12px;
+
+  background:#191919;
+  color:white;
+
+  padding:8px 2px;
+
+  font-size:26px;
+
+  cursor:pointer;
+
+  touch-action:manipulation;
 }
 
 .item span{
   display:block;
-  font-size:11px;
-  margin-top:3px;
+
+  margin-top:2px;
+
+  font-size:10px;
+
   color:#ccc;
 }
 
-#start{
-  margin-top:12px;
-  padding:13px 28px;
-  border:0;
-  border-radius:14px;
-  background:#fff;
-  color:#111;
-  font-weight:bold;
-  font-size:17px;
+.item:active{
+  transform:scale(.88);
+  background:#461653;
 }
+
+/* TOMBOL MULAI */
+
+#start{
+  position:relative;
+
+  z-index:9999;
+
+  display:block;
+
+  width:min(320px,90%);
+
+  margin:12px auto 20px;
+
+  padding:15px 20px;
+
+  border:0;
+
+  border-radius:15px;
+
+  background:white;
+  color:#111;
+
+  font-size:18px;
+  font-weight:bold;
+
+  box-shadow:0 5px 18px rgba(0,0,0,.5);
+
+  cursor:pointer;
+
+  touch-action:manipulation;
+}
+
+#start:active{
+  transform:scale(.95);
+}
+
+/* BENDA YANG DILEMPAR */
 
 .projectile{
   position:absolute;
-  font-size:42px;
+
+  z-index:20;
+
   pointer-events:none;
-  z-index:5;
+
+  font-size:38px;
+
   transition:
-    left .35s cubic-bezier(.2,.8,.2,1),
-    top .35s cubic-bezier(.2,.8,.2,1),
-    transform .35s;
+    left .4s cubic-bezier(.2,.8,.2,1),
+    top .4s cubic-bezier(.2,.8,.2,1),
+    transform .4s;
 }
+
+/* EFEK TEKS */
 
 .pop{
   position:absolute;
+
+  z-index:30;
+
   pointer-events:none;
-  z-index:10;
-  font-size:28px;
+
+  font-size:25px;
   font-weight:bold;
+
   animation:pop .6s forwards;
 }
 
 @keyframes pop{
+
   0%{
     opacity:1;
     transform:scale(.5) translateY(0);
   }
+
   100%{
     opacity:0;
-    transform:scale(1.5) translateY(-55px);
+    transform:scale(1.5) translateY(-50px);
   }
+
 }
 
-.shake{
-  animation:shake .25s;
+/* LAYAR HP KECIL */
+
+@media(max-height:650px){
+
+  #game{
+    padding-top:7px;
+  }
+
+  h1{
+    font-size:21px;
+  }
+
+  .subtitle{
+    font-size:11px;
+  }
+
+  #score{
+    font-size:18px;
+    margin:4px;
+  }
+
+  #message{
+    font-size:13px;
+    min-height:20px;
+  }
+
+  #arena{
+    height:38vh;
+    min-height:220px;
+  }
+
+  #target{
+    width:125px;
+    height:125px;
+  }
+
+  .item{
+    padding:5px 2px;
+    font-size:22px;
+  }
+
+  .item span{
+    font-size:9px;
+  }
+
+  #start{
+    margin-top:9px;
+    padding:12px;
+    font-size:16px;
+  }
+
 }
 
-@keyframes shake{
-  0%,100%{transform:translateX(0)}
-  25%{transform:translateX(-8px)}
-  50%{transform:translateX(8px)}
-  75%{transform:translateX(-5px)}
+/* HP SANGAT KECIL */
+
+@media(max-width:360px){
+
+  #arena{
+    height:35vh;
+    min-height:200px;
+  }
+
+  #target{
+    width:110px;
+    height:110px;
+  }
+
+  #items{
+    gap:4px;
+  }
+
+  .item{
+    font-size:20px;
+  }
+
+  #start{
+    width:95%;
+  }
+
 }
 </style>
 </head>
@@ -187,141 +358,230 @@ h1{
 
 <div id="game">
 
-<h1>🤣 LEMPAR BAYU 🤣</h1>
-<p class="subtitle">Pilih benda, lalu lempar ke target!</p>
+  <h1>🤣 LEMPAR BAYU 🤣</h1>
 
-<div id="score">Skor: 0</div>
-<div id="message">Tekan MULAI dulu bro!</div>
+  <p class="subtitle">
+    Pilih benda lalu lempar ke target!
+  </p>
 
-<div id="arena">
-
-  <div id="target">
-    <img id="targetImage"
-      src="IMG-20260503-WA0002.jpg"
-      alt="Bayu">
+  <div id="score">
+    Skor: 0
   </div>
 
+  <div id="message">
+    Tekan MULAI GAME dulu bro!
+  </div>
+
+
+  <!-- ARENA -->
+
+  <div id="arena">
+
+    <div id="target">
+
+      <img
+        id="targetImage"
+        src="IMG-20260503-WA0002.jpg"
+        alt="Bayu">
+
+    </div>
+
+  </div>
+
+
+  <!-- BARANG -->
+
+  <div id="items">
+
+    <button class="item"
+      onclick="throwItem('🩴',10,'PLAK!')">
+      🩴
+      <span>Sendal</span>
+    </button>
+
+    <button class="item"
+      onclick="throwItem('🥒',15,'DUK!')">
+      🥒
+      <span>Timun</span>
+    </button>
+
+    <button class="item"
+      onclick="throwItem('🍆',15,'BUK!')">
+      🍆
+      <span>Terong</span>
+    </button>
+
+    <button class="item"
+      onclick="throwItem('👟',20,'BRAK!')">
+      👟
+      <span>Sepatu</span>
+    </button>
+
+    <button class="item"
+      onclick="throwItem('❤️',25,'LOVE!')">
+      ❤️
+      <span>Hati</span>
+    </button>
+
+    <button class="item"
+      onclick="throwItem('⚽',30,'BOOM!')">
+      ⚽
+      <span>Bola</span>
+    </button>
+
+    <button class="item"
+      onclick="throwItem('💣',50,'DUARR!')">
+      💣
+      <span>Bom</span>
+    </button>
+
+    <button class="item"
+      onclick="throwItem('🍅',10,'PLOK!')">
+      🍅
+      <span>Tomat</span>
+    </button>
+
+  </div>
+
+
+  <!-- TOMBOL -->
+
+  <button id="start" onclick="startGame()">
+    ▶️ MULAI GAME
+  </button>
+
 </div>
 
-<div id="items">
-
-<button class="item" onclick="throwItem('🩴',10,'PLAK!')">
-🩴<span>Sendal</span>
-</button>
-
-<button class="item" onclick="throwItem('🥒',15,'DUK!')">
-🥒<span>Timun</span>
-</button>
-
-<button class="item" onclick="throwItem('🍆',15,'BUK!')">
-🍆<span>Terong</span>
-</button>
-
-<button class="item" onclick="throwItem('👟',20,'BRAK!')">
-👟<span>Sepatu</span>
-</button>
-
-<button class="item" onclick="throwItem('❤️',25,'LOVE!')">
-❤️<span>Hati</span>
-</button>
-
-<button class="item" onclick="throwItem('⚽',30,'BOOM!')">
-⚽<span>Bola</span>
-</button>
-
-<button class="item" onclick="throwItem('💣',50,'DUARR!')">
-💣<span>Bom</span>
-</button>
-
-<button class="item" onclick="throwItem('🍅',10,'PLOK!')">
-🍅<span>Tomat</span>
-</button>
-
-</div>
-
-<button id="start" onclick="startGame()">MULAI GAME</button>
-
-</div>
 
 <script>
 
-let score=0;
-let playing=false;
-let audioCtx=null;
+/* =========================
+   DATA GAME
+========================= */
 
-/* FOTO */
+let score = 0;
+let playing = false;
+let audioCtx = null;
+
+
+/* =========================
+   FOTO
+========================= */
 
 const photos = [
+
   "IMG-20260503-WA0002.jpg",
+
   "IMG-20260804-WA0102.jpg",
+
   "IMG-20260916-WA0088.jpg",
+
   "IMG_20260825_195458.jpg",
+
   "IMG_20260911_121045.jpg",
+
   "IMG_20260911_121113.jpg",
+
   "IMG_20260911_121132.jpg",
+
   "IMG_20260911_122745.jpg",
+
   "IMG_20260924_003803.jpg"
+
 ];
 
-let photoIndex=0;
+let photoIndex = 0;
+
 
 /* GANTI FOTO SETIAP 15 DETIK */
 
 setInterval(function(){
 
-  photoIndex=(photoIndex+1)%photos.length;
+  photoIndex =
+    (photoIndex + 1) % photos.length;
 
-  document.getElementById("targetImage").src=
-    photos[photoIndex];
+  document.getElementById(
+    "targetImage"
+  ).src = photos[photoIndex];
 
 },15000);
 
 
-/* ELEMENT */
+/* =========================
+   ELEMENT
+========================= */
 
-const arena=document.getElementById("arena");
-const target=document.getElementById("target");
-const message=document.getElementById("message");
-const scoreText=document.getElementById("score");
+const arena =
+  document.getElementById("arena");
+
+const target =
+  document.getElementById("target");
+
+const message =
+  document.getElementById("message");
+
+const scoreText =
+  document.getElementById("score");
 
 
-/* AUDIO */
+/* =========================
+   AUDIO
+========================= */
 
 function initAudio(){
 
   if(!audioCtx){
-    audioCtx=
-      new(window.AudioContext||window.webkitAudioContext)();
+
+    audioCtx =
+      new(
+        window.AudioContext ||
+        window.webkitAudioContext
+      )();
+
   }
 
-  if(audioCtx.state==="suspended"){
+  if(audioCtx.state === "suspended"){
+
     audioCtx.resume();
+
   }
 
 }
+
 
 function sound(type){
 
   initAudio();
 
-  const osc=audioCtx.createOscillator();
-  const gain=audioCtx.createGain();
+  const osc =
+    audioCtx.createOscillator();
+
+  const gain =
+    audioCtx.createGain();
 
   osc.connect(gain);
   gain.connect(audioCtx.destination);
 
-  let freq=300;
+  let freq = 300;
 
-  if(type==="hit")freq=120;
-  if(type==="bom")freq=70;
-  if(type==="love")freq=700;
+  if(type === "hit"){
+    freq = 120;
+  }
 
-  osc.frequency.value=freq;
+  if(type === "bom"){
+    freq = 70;
+  }
 
-  osc.type=
-    type==="bom"
-    ?"sawtooth"
-    :"square";
+  if(type === "love"){
+    freq = 700;
+  }
+
+  osc.frequency.value = freq;
+
+  osc.type =
+    type === "bom"
+    ? "sawtooth"
+    : "square";
 
   gain.gain.setValueAtTime(
     .15,
@@ -330,30 +590,34 @@ function sound(type){
 
   gain.gain.exponentialRampToValueAtTime(
     .001,
-    audioCtx.currentTime+.25
+    audioCtx.currentTime + .25
   );
 
   osc.start();
 
   osc.stop(
-    audioCtx.currentTime+.25
+    audioCtx.currentTime + .25
   );
 
 }
 
 
-/* MULAI */
+/* =========================
+   MULAI GAME
+========================= */
 
 function startGame(){
 
   initAudio();
 
-  score=0;
-  playing=true;
+  score = 0;
 
-  scoreText.textContent="Skor: 0";
+  playing = true;
 
-  message.textContent=
+  scoreText.textContent =
+    "Skor: 0";
+
+  message.textContent =
     "Pilih benda buat dilempar! 🎯";
 
   sound("love");
@@ -361,89 +625,112 @@ function startGame(){
 }
 
 
-/* LEMPAR */
+/* =========================
+   LEMPAR BENDA
+========================= */
 
-function throwItem(emoji,points,text){
+function throwItem(
+  emoji,
+  points,
+  text
+){
 
   if(!playing){
 
-    message.textContent=
-      "Tekan MULAI dulu bro 😭";
+    message.textContent =
+      "Tekan MULAI GAME dulu bro 😭";
 
     return;
+
   }
 
-  const projectile=
+
+  const projectile =
     document.createElement("div");
 
-  projectile.className="projectile";
+  projectile.className =
+    "projectile";
 
-  projectile.textContent=emoji;
+  projectile.textContent =
+    emoji;
 
   arena.appendChild(projectile);
 
 
   /* POSISI AWAL */
 
-  const startX=
-    Math.random()*
-    (arena.clientWidth-60)+20;
+  const startX =
+    Math.random() *
+    Math.max(
+      20,
+      arena.clientWidth - 60
+    ) + 20;
 
-  const startY=
-    arena.clientHeight-60;
-
-  projectile.style.left=
-    startX+"px";
-
-  projectile.style.top=
-    startY+"px";
+  const startY =
+    arena.clientHeight - 50;
 
 
-  /* POSISI TENGAH TARGET */
+  projectile.style.left =
+    startX + "px";
 
-  const targetX=
-    target.offsetLeft+
-    target.offsetWidth/2-
-    20;
-
-  const targetY=
-    target.offsetTop+
-    target.offsetHeight/2-
-    20;
+  projectile.style.top =
+    startY + "px";
 
 
-  /* LEMPAR KE TARGET */
+  /* POSISI TARGET */
+
+  const targetX =
+    target.offsetLeft +
+    target.offsetWidth / 2 -
+    19;
+
+  const targetY =
+    target.offsetTop +
+    target.offsetHeight / 2 -
+    19;
+
+
+  /* GERAK */
+
+  requestAnimationFrame(function(){
+
+    requestAnimationFrame(function(){
+
+      projectile.style.left =
+        targetX + "px";
+
+      projectile.style.top =
+        targetY + "px";
+
+      projectile.style.transform =
+        "rotate(720deg) scale(1.2)";
+
+    });
+
+  });
+
+
+  /* SAAT KENA */
 
   setTimeout(function(){
 
-    projectile.style.left=
-      targetX+"px";
+    if(projectile.parentNode){
 
-    projectile.style.top=
-      targetY+"px";
+      projectile.remove();
 
-    projectile.style.transform=
-      "rotate(720deg) scale(1.3)";
-
-  },20);
+    }
 
 
-  /* KENA TARGET */
+    score += points;
 
-  setTimeout(function(){
+    scoreText.textContent =
+      "Skor: " + score;
 
-    projectile.remove();
-
-    score+=points;
-
-    scoreText.textContent=
-      "Skor: "+score;
-
-    message.textContent=
-      text+" +"+points;
+    message.textContent =
+      text + " +" + points;
 
 
-    /* TARGET GOYANG */
+    /* GOYANG TARGET */
 
     target.classList.remove("hit");
 
@@ -452,16 +739,9 @@ function throwItem(emoji,points,text){
     target.classList.add("hit");
 
 
-    /* ARENA GOYANG */
+    /* SUARA */
 
-    arena.classList.remove("shake");
-
-    void arena.offsetWidth;
-
-    arena.classList.add("shake");
-
-
-    if(emoji==="💣"){
+    if(emoji === "💣"){
 
       sound("bom");
 
@@ -470,82 +750,98 @@ function throwItem(emoji,points,text){
     }else{
 
       sound(
-        emoji==="❤️"
-        ?"love"
-        :"hit"
+        emoji === "❤️"
+        ? "love"
+        : "hit"
       );
 
       showPop(text);
 
     }
 
-  },380);
+  },450);
 
 }
 
 
-/* TEKS EFEK */
+/* =========================
+   EFEK TEKS
+========================= */
 
 function showPop(text){
 
-  const pop=
+  const pop =
     document.createElement("div");
 
-  pop.className="pop";
+  pop.className =
+    "pop";
 
-  pop.textContent=text;
+  pop.textContent =
+    text;
 
-  pop.style.left=
-    (arena.clientWidth/2-35)+"px";
+  pop.style.left =
+    Math.max(
+      10,
+      arena.clientWidth / 2 - 35
+    ) + "px";
 
-  pop.style.top=
-    (arena.clientHeight/2-20)+"px";
+  pop.style.top =
+    Math.max(
+      10,
+      arena.clientHeight / 2 - 20
+    ) + "px";
 
   arena.appendChild(pop);
 
-  setTimeout(
-    ()=>pop.remove(),
-    600
-  );
+  setTimeout(function(){
+
+    pop.remove();
+
+  },600);
 
 }
 
 
-/* BOM */
+/* =========================
+   BOM
+========================= */
 
 function explosion(){
 
-  for(let i=0;i<12;i++){
+  for(let i = 0; i < 12; i++){
 
-    const e=
+    const e =
       document.createElement("div");
 
-    e.className="pop";
+    e.className =
+      "pop";
 
-    e.textContent="💥";
+    e.textContent =
+      "💥";
 
-    e.style.left=
+    e.style.left =
       (
-        arena.clientWidth/2+
-        (Math.random()-.5)*180
-      )+"px";
+        arena.clientWidth / 2 +
+        (Math.random() - .5) * 180
+      ) + "px";
 
-    e.style.top=
+    e.style.top =
       (
-        arena.clientHeight/2+
-        (Math.random()-.5)*150
-      )+"px";
+        arena.clientHeight / 2 +
+        (Math.random() - .5) * 130
+      ) + "px";
 
     arena.appendChild(e);
 
-    setTimeout(
-      ()=>e.remove(),
-      700
-    );
+    setTimeout(function(){
+
+      e.remove();
+
+    },700);
 
   }
 
-  message.textContent=
+  message.textContent =
     "💣 DUARRRR!!! +50";
 
 }
